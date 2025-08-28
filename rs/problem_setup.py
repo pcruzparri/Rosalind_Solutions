@@ -3,6 +3,12 @@ import nbformat as nbf
 from argparse import ArgumentParser
 from shutil import rmtree
 
+"""
+Sets up a folder and a jupyter notebook for a Rosalind problem.
+Usage: python problem_setup.py PROBLEM_ID INPUT_PARSE_MODE
+PROBLEM_ID: str, the Rosalind problem ID, e.g. "REVC"
+INPUT_PARSE_MODE: int, 1 for single row input, 0 for multirow input
+"""
 parser = ArgumentParser()
 parser.add_argument("PROBLEM_ID", type=str)
 parser.add_argument("INPUT_PARSE_MODE", type=int, choices=[0,1], default=1)
