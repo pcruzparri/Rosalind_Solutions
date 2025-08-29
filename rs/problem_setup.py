@@ -31,8 +31,8 @@ if cont:
                     data_path = 'rosalind_{probID}.txt'
                     
                     with open('rosalind_{probID}.txt') as f:
-                        \tdata = [i.strip() for i in f.readlines()][{':' if not input_parse_mode else ''}{input_parse_mode-1}]
-                    data{'[:5]' if not input_parse_mode else ''}"""
+                        \tdata = [i.strip() for i in f.readlines()]{'[0]' if not input_parse_mode else ''}
+                    data"""
     solution_cell_code = f"""# Solution
                              solution_path = 'rosalind_{probID}_solution.txt'
                              solution = []
