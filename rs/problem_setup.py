@@ -1,17 +1,29 @@
 from os import mkdir, listdir
 import nbformat as nbf
-from argparse import ArgumentParser
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from shutil import rmtree
 
 """
 Sets up a folder and a jupyter notebook for a Rosalind problem.
 Usage: python problem_setup.py PROBLEM_ID INPUT_PARSE_MODE
-PROBLEM_ID: str, the Rosalind problem ID, e.g. "REVC"
+PROBLEM_ID: str, the Rosalind problem ID, e.g. "revc"
 INPUT_PARSE_MODE: int, 1 for single row input, 0 for multirow input
 """
-parser = ArgumentParser()
-parser.add_argument("PROBLEM_ID", type=str)
-parser.add_argument("INPUT_PARSE_MODE", type=int, choices=[0,1], default=1)
+parser = ArgumentParser(prog='problem_setup', 
+                        formatter_class=RawDescriptionHelpFormatter,
+                        description="""
+Sets up a folder and a jupyter notebook for working on a Rosalind problem.
+
+The folder will be named after the problem ID, and will contain a notebook with cells for reading data and writing the solution.
+The folder will be named PROBLEM_ID.
+The notebook will be named PROBLEM_ID.ipynb.
+The data file will be read from rosalind_PROBLEM_ID.txt. (This is the default name for doenloaded Rosalind data files.)
+The solution will be written to rosalind_PROBLEM_ID_solution.txt.
+                        """,
+                        epilog="Example usage: python problem_setup.py revc 1 OR python problem_setup.py revc",
+                        usage="python %(prog)s.py PROBLEM_ID INPUT_PARSE_MODE[optional]")
+parser.add_argument("PROBLEM_ID", type=str, help="The Rosalind problem ID, e.g. 'revc'. Must be lowercase for proper file naming.")
+parser.add_argument("INPUT_PARSE_MODE", type=int, nargs='?', choices=[0,1], default=0, help="1 for single row input, 0 for multirow input. Default is 0.")
 #parser.add_argument("ROW_READ_HANDLER")
 args = parser.parse_args()
 
@@ -31,7 +43,7 @@ if cont:
                     data_path = 'rosalind_{probID}.txt'
                     
                     with open('rosalind_{probID}.txt') as f:
-                        \tdata = [i.strip() for i in f.readlines()]{'[0]' if not input_parse_mode else ''}
+                        \tdata = [i.strip() for i in f.readlines()]{'[0]' if input_parse_mode else ''}
                     data"""
     solution_cell_code = f"""# Solution
                              solution_path = 'rosalind_{probID}_solution.txt'
